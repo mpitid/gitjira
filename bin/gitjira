@@ -39,7 +39,7 @@ def main(args):
 
     jira = Jira(conf)
     if opts.create_branch:
-        gitjira.createBranch(opts.create_branch, jira, opts.transition)
+        gitjira.createBranch(jira.prefix(opts.create_branch), jira, opts.transition)
 
     if opts.commit_branch:
         gitjira.commitBranch(jira)
@@ -82,7 +82,10 @@ def interactive_config(filename):
 	username = read("Username:", non_empty("Username"))
 	password = read("Password:", non_empty("Password"), reader=getpass.getpass)
 	subdomain = read("Jira subdomain (https://<subdomain>.atlassian.net):", non_empty("Subdomain"))
-	conf = Configuration(userhash=gitjira.createUserHash(username, password), subdomain=subdomain)
+	prefix = read("Default ticket prefix (empty for none):")
+	conf = Configuration(userhash=gitjira.createUserHash(username, password),
+	                     subdomain=subdomain,
+	                     ticket_prefix=prefix)
 
 	if not os.path.isdir(os.path.dirname(filename)):
 		os.makedirs(os.path.dirname(filename))

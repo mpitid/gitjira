@@ -8,7 +8,7 @@ from error import ConfigurationError
 
 class Configuration(object):
 
-    _keys = 'subdomain', 'userhash'
+    _keys = 'subdomain', 'userhash', 'ticket_prefix'
 
     def __init__(self, **kwargs):
         self._validate(kwargs)

@@ -31,6 +31,11 @@ class Jira(object):
         data = json.dumps(dict(transition=dict(id=Workflow.IN_PROGRESS)))
         return self.post(path, data)
 
+    def prefix(self, ticket):
+        if self.conf.ticket_prefix and ticket.startswith('#'):
+            return '%s-%s' % (self.conf.ticket_prefix, ticket[1:])
+        return ticket
+
     def join(self, *parts):
         assert all(not part.startswith('/') for part in parts), "Expecting relative path"
         return os.path.join(*parts)
