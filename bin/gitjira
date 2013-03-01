@@ -81,8 +81,8 @@ def default_config_file():
 def interactive_config(filename):
 	username = read("Username:", non_empty("Username"))
 	password = read("Password:", non_empty("Password"), reader=getpass.getpass)
-	base_url = read("Jira base URL (e.g. https://jira.atlassian.net):", non_empty("URL"))
-	conf = Configuration(userhash=gitjira.createUserHash(username, password), base_url=base_url)
+	subdomain = read("Jira subdomain (https://<subdomain>.atlassian.net):", non_empty("Subdomain"))
+	conf = Configuration(userhash=gitjira.createUserHash(username, password), subdomain=subdomain)
 
 	if not os.path.isdir(os.path.dirname(filename)):
 		os.makedirs(os.path.dirname(filename))

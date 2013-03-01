@@ -46,7 +46,7 @@ class Jira(object):
 
     def _request(self, path, data=None):
         """Build and perform a request to the JIRA API."""
-        url = self.join(self.conf.base_url, path)
+        url = self.join('https://%s.atlassian.net' % self.conf.subdomain, path)
         headers = {'Authorization': 'Basic %s' % self.conf.userhash,
                    'Content-Type' : 'application/json'}
 
